@@ -1,5 +1,5 @@
 import { Jetstream } from "@bsky/jetstream";
-import type { WorkerMessage, WorkerResponse } from "../types/firehose";
+import type { WorkerMessage, WorkerResponse } from "./firehoseTypes";
 
 function send(message: WorkerResponse) {
 	self.postMessage(message);
