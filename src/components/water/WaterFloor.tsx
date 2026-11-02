@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { VERT } from "./shaders/vertex";
 import { FRAG } from "./shaders/fragment";
-import { useWaterFloorControls } from "./utils/controls";
+import { useWaterFloorControls } from "./utils/waterControls";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WaterFloor — cel-shaded / anime water using Voronoi F1 − SmoothF1
