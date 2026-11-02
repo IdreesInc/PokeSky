@@ -1,0 +1,19 @@
+import { usePokemonPosts } from "../store/pokemonPostStore";
+import "./PostList.css";
+
+function PostList() {
+
+	const posts = usePokemonPosts();
+
+	return (
+		<div className="postList">
+			{
+				posts.map((item) => (
+					<span key={item.key}>{item.text}</span>
+				))
+			}
+		</div>
+	)
+}
+
+export default PostList;

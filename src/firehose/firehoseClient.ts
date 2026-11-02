@@ -1,6 +1,6 @@
-import type { WorkerMessage, WorkerResponse } from "./firehoseTypes";
+import type { WorkerMessage, PostEvent } from "./firehoseTypes";
 
-const listeners = new Set<(event: WorkerResponse) => void>();
+const listeners = new Set<(event: PostEvent) => void>();
 let worker: Worker | null = null;
 
 function start() {
@@ -9,14 +9,14 @@ function start() {
 	}
 	worker = new Worker(new URL("./firehose.worker.ts", import.meta.url), { type: "module"});
 	worker.postMessage({type: "start"} satisfies WorkerMessage);
-	worker.addEventListener("message", (event: MessageEvent<WorkerResponse>) => {
+	worker.addEventListener("message", (event: MessageEvent<PostEvent>) => {
 		for (const listener of listeners) {
 			listener(event.data);
 		}
 	});
 }
 
-export function onEvent(listener: (event: WorkerResponse) => void) {
+export function onEvent(listener: (event: PostEvent) => void) {
 	listeners.add(listener);
 	if (listeners.size === 1) {
 		start();

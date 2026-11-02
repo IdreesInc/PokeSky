@@ -2,7 +2,7 @@ export type WorkerMessage = {
 	type: "start";
 };
 
-export type WorkerResponse = {
-	type: "event",
-	contents: string
+export type PostEvent = {
+	id: string;
+	contents: string;
 };

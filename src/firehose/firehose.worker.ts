@@ -1,7 +1,7 @@
 import { Jetstream } from "@bsky/jetstream";
-import type { WorkerMessage, WorkerResponse } from "./firehoseTypes";
+import type { WorkerMessage, PostEvent } from "./firehoseTypes";
 
-function send(message: WorkerResponse) {
+function send(message: PostEvent) {
 	self.postMessage(message);
 }
 
@@ -16,7 +16,7 @@ async function start() {
 		const jetstream = new Jetstream("https://jetstream.us-east.bsky.network");
 		for await (const event of jetstream.live({ collections: ['app.bsky.feed.post'] })) {
 			if (event.kind === "commit" && event.commit.operation === "create") {
-				send({ type: "event", contents: event.commit.record.text + "" });
+				send({id: event.did + "/" + event.commit.rkey, contents: event.commit.record.text + "" });
 			}
 		}
 	} catch (e) {
