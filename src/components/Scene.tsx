@@ -1,11 +1,35 @@
 import "./Scene.css";
 import { createRoot, type Container } from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls } from "@react-three/drei";
-import { MathUtils } from "three";
+import { useGLTF, OrbitControls, Stats } from "@react-three/drei";
+import { BufferGeometry, MathUtils, Matrix4, Mesh, Object3D } from "three";
+import WaterFloor from "./water/WaterFloor";
+import WaterWaveSimulation from "./water/WaterWaveSimulation";
+import { useMemo, useRef } from "react";
+import { useWaterObject } from "./water/hooks/useWaterObject";
 
 function Scene() {
 	const { scene } = useGLTF("/models/isle_abeens_level1_baked.glb");
+
+	const islandRef = useRef<Object3D>(null);
+
+	const islandGeometries = useMemo(() => {
+		scene.updateMatrixWorld(true);
+		const rootInverse = scene.matrixWorld.clone().invert();
+		const relative = new Matrix4();
+		const geometries: BufferGeometry[] = [];
+
+		scene.traverse((child) => {
+			if (!(child instanceof Mesh)) {
+				return;
+			}
+			relative.multiplyMatrices(rootInverse, child.matrixWorld);
+			geometries.push(child.geometry.clone().applyMatrix4(relative));
+		});
+		return geometries;
+	}, [scene]);
+
+	useWaterObject("island", islandRef, islandGeometries);
 
 	return (
 		<div id="canvas-container">
@@ -16,10 +40,13 @@ function Scene() {
 					rotation: [MathUtils.degToRad(-30), 0, 0],
 				}}
 			>
-				<primitive object={scene} scale={0.04} position={[0, 0, 0]} />
-				{Water()}
-				<ambientLight intensity={1} />
-				{/* <OrbitControls /> */}
+				<primitive ref={islandRef} object={scene} scale={0.04} position={[0, 0, 0]} />
+				{/* <Water /> */}
+				<WaterFloor deepOpacityOverride={0.95} />
+				<WaterWaveSimulation />
+				{/* <ambientLight intensity={1} /> */}
+				<OrbitControls />
+				<Stats />
 			</Canvas>
 		</div>
 	);
