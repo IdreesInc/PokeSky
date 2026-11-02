@@ -8,6 +8,7 @@ import WaterWaveSimulation from "./water/WaterWaveSimulation";
 import { useMemo, useRef } from "react";
 import { useWaterObject } from "./water/hooks/useWaterObject";
 import WaterDepthIntersection from "./water/WaterDepthIntersection";
+import { Leva } from "leva";
 
 function Scene() {
 	const { scene } = useGLTF("/models/isle_abeens_level1_baked.glb");
@@ -34,31 +35,32 @@ function Scene() {
 
 	return (
 		<div id="canvas-container">
+			<Leva hidden />
 			<Canvas
 				camera={{
 					position: [0, 45, 70],
 					fov: 45,
-					rotation: [MathUtils.degToRad(-30), 0, 0],
+					rotation: [MathUtils.degToRad(-35), 0, 0],
 					near: 1
 				}}
 			>
 				<primitive ref={islandRef} object={scene} scale={0.04} position={[0, 0, 0]} />
-				{/* <Water /> */}
+				<Ground />
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />
 				<WaterDepthIntersection />
-				{/* <ambientLight intensity={1} /> */}
-				<OrbitControls />
-				<Stats />
+				<ambientLight intensity={1} />
+				{/* <OrbitControls /> */}
+				{/* <Stats /> */}
 			</Canvas>
 		</div>
 	);
 }
 
-function Water() {
+function Ground() {
 	return (
-		<mesh rotation={[-Math.PI / 2, 0, 0]}>
-			<planeGeometry args={[500, 1000]} />
+		<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.2, 0]}>
+			<planeGeometry args={[400, 400]} />
 			<meshStandardMaterial color="cyan" />
 		</mesh>
 	);

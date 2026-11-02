@@ -6,8 +6,6 @@ function App() {
 
 	return (
 		<>
-			Hello, World!
-			<br/>
 			<Scene />
 			<br/>
 			<PostList />
