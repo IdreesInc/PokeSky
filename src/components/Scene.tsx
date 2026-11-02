@@ -7,6 +7,7 @@ import WaterFloor from "./water/WaterFloor";
 import WaterWaveSimulation from "./water/WaterWaveSimulation";
 import { useMemo, useRef } from "react";
 import { useWaterObject } from "./water/hooks/useWaterObject";
+import WaterDepthIntersection from "./water/WaterDepthIntersection";
 
 function Scene() {
 	const { scene } = useGLTF("/models/isle_abeens_level1_baked.glb");
@@ -38,12 +39,14 @@ function Scene() {
 					position: [0, 45, 70],
 					fov: 45,
 					rotation: [MathUtils.degToRad(-30), 0, 0],
+					near: 1
 				}}
 			>
 				<primitive ref={islandRef} object={scene} scale={0.04} position={[0, 0, 0]} />
 				{/* <Water /> */}
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />
+				<WaterDepthIntersection />
 				{/* <ambientLight intensity={1} /> */}
 				<OrbitControls />
 				<Stats />

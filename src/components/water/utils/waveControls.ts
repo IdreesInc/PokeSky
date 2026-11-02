@@ -16,14 +16,14 @@ export function useWaveSimulationControls() {
         injectStr:      { value: 0.21, min: 0.0, max: 1.0, step: 0.01, label: "Strength" },
         injectAmp:      { value: 1,    min: 0.1, max: 1.0, step: 0.01, label: "Amplitude" },
         injectInterval: { value: 0.8,  min: 0.1, max: 5.0, step: 0.1,  label: "Interval (s)" },
-        bandWidth:      { value: 5.0,  min: 0.01, max: 5.0, step: 0.1,  label: "Band Width (world)" },
+        bandWidth:      { value: 1.0,  min: 0.01, max: 5.0, step: 0.1,  label: "Band Width (world)" },
       }, { collapsed: false }),
 
       Display: folder({
         gradScale:     { value: 1.0,  min: 0.5,  max: 60.0, step: 0.5,  label: "Grad Scale" },
         ringThreshold: { value: 0.54, min: 0.05, max: 1.0,  step: 0.01, label: "Ring Threshold" },
         edgeSharpness: { value: 0.91, min: 0.0,  max: 1.0,  step: 0.01, label: "Edge Sharpness (1=anime)" },
-        waveSizeMul:   { value: 2.7,  min: 1.0,  max: 100.0, step: 0.1,  label: "Region Size (× scale)" },
+        waveSizeMul:   { value: 60,  min: 1.0,  max: 100.0, step: 0.1,  label: "Region Size (× scale)" },
         color:         { value: "#ffffff",                                label: "Color" },
         opacity:       { value: 0.75, min: 0.0,  max: 1.0,  step: 0.01, label: "Opacity" },
       }, { collapsed: false }),

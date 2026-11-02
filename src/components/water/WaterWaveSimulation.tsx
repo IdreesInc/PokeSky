@@ -73,7 +73,7 @@ export default function WaterWaveSimulation() {
     fragmentShader: INJ_FRAG,
     side:           THREE.DoubleSide,
     uniforms: {
-      uWaterY:    { value: -0.1 },
+      uWaterY:    { value: 0.45 },
       uBandWidth: { value: 1.0 },
     },
   }), []);
