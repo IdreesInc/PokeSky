@@ -7,7 +7,7 @@ function start() {
 	if (worker) {
 		return;
 	}
-	worker = new Worker(new URL("./workers/firehose.worker.ts", import.meta.url), { type: "module"});
+	worker = new Worker(new URL("./firehose.worker.ts", import.meta.url), { type: "module"});
 	worker.postMessage({type: "start"} satisfies WorkerMessage);
 	worker.addEventListener("message", (event: MessageEvent<WorkerResponse>) => {
 		for (const listener of listeners) {
