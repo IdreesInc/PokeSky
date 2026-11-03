@@ -1,5 +1,4 @@
 import "./Scene.css";
-import { createRoot, type Container } from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { BufferGeometry, MathUtils, Matrix4, Mesh, Object3D } from "three";
@@ -9,21 +8,22 @@ import { useEffect, useMemo, useRef } from "react";
 import { useWaterObject } from "./water/hooks/useWaterObject";
 import WaterDepthIntersection from "./water/WaterDepthIntersection";
 import { Leva } from "leva";
-import Sprite from "./Sprite";
-import { usePokemonPosts } from "../store/pokemonPostStore";
+import Sprites from "./Sprites";
 
 function Scene() {
-	const { scene } = useGLTF("/models/isle_abeens_level1_baked.glb");
+	const { scene: islandModel } = useGLTF(
+		"/models/isle_abeens_level1_baked.glb",
+	);
 
 	const islandRef = useRef<Object3D>(null);
 
 	const islandGeometries = useMemo(() => {
-		scene.updateMatrixWorld(true);
-		const rootInverse = scene.matrixWorld.clone().invert();
+		islandModel.updateMatrixWorld(true);
+		const rootInverse = islandModel.matrixWorld.clone().invert();
 		const relative = new Matrix4();
 		const geometries: BufferGeometry[] = [];
 
-		scene.traverse((child) => {
+		islandModel.traverse((child) => {
 			if (!(child instanceof Mesh)) {
 				return;
 			}
@@ -31,7 +31,7 @@ function Scene() {
 			geometries.push(child.geometry.clone().applyMatrix4(relative));
 		});
 		return geometries;
-	}, [scene]);
+	}, [islandModel]);
 
 	useEffect(
 		() => () => {
@@ -43,8 +43,6 @@ function Scene() {
 	);
 
 	useWaterObject("island", islandRef, islandGeometries);
-
-	const posts = usePokemonPosts();
 
 	return (
 		<div id="canvas-container">
@@ -59,13 +57,11 @@ function Scene() {
 			>
 				<primitive
 					ref={islandRef}
-					object={scene}
+					object={islandModel}
 					scale={0.04}
 					position={[0, 0, 0]}
 				/>
-				{posts.map((item) => (
-					<Sprite key={item.key + "/sprite"} pokedex={item.pokedex} />
-				))}
+				<Sprites />
 				<Ground />
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />
@@ -86,7 +82,5 @@ function Ground() {
 		</mesh>
 	);
 }
-
-createRoot(document.getElementById("root") as Container).render(<Scene />);
 
 export default Scene;
