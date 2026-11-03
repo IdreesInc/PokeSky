@@ -44,7 +44,12 @@ function Scene() {
 					near: 1
 				}}
 			>
-				<primitive ref={islandRef} object={scene} scale={0.04} position={[0, 0, 0]} />
+				<primitive
+					ref={islandRef}
+					object={scene}
+					scale={0.04}
+					position={[0, 0, 0]}
+				/>
 				<Ground />
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />
