@@ -1,10 +1,6 @@
 import { useTexture } from "@react-three/drei";
 import "./Sprite.css";
-import {
-	NearestFilter,
-	Vector3,
-	type Sprite as ThreeSprite
-} from "three";
+import { NearestFilter, Vector3, type Sprite as ThreeSprite } from "three";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 
@@ -52,8 +48,7 @@ function Sprite({ pokedex }: SpriteProps) {
 			);
 			sprite.position.lerpVectors(fromPosition, nextPosition, t);
 			if (t === 1) {
-				fromPosition.copy(nextPosition);
-				nextPositionRef.current = null;
+				endMove();
 			}
 			sprite.position.y =
 				fromPosition.y +
@@ -74,6 +69,14 @@ function Sprite({ pokedex }: SpriteProps) {
 		fromPositionRef.current.copy(sprite.position);
 		nextPositionRef.current = getRandom();
 		startTimeRef.current = null;
+	}
+
+	function endMove() {
+		if (nextPositionRef.current != null) {
+			fromPositionRef.current.copy(nextPositionRef.current);
+			nextPositionRef.current = null;
+		}
+		setTimeout(moveRandom, randomBetween(5000, 10000));
 	}
 
 	return (
