@@ -1,7 +1,7 @@
 import "./Scene.css";
 import { createRoot, type Container } from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls, Stats } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { BufferGeometry, MathUtils, Matrix4, Mesh, Object3D } from "three";
 import WaterFloor from "./water/WaterFloor";
 import WaterWaveSimulation from "./water/WaterWaveSimulation";
@@ -9,6 +9,8 @@ import { useEffect, useMemo, useRef } from "react";
 import { useWaterObject } from "./water/hooks/useWaterObject";
 import WaterDepthIntersection from "./water/WaterDepthIntersection";
 import { Leva } from "leva";
+import Sprite from "./Sprite";
+import { usePokemonPosts } from "../store/pokemonPostStore";
 
 function Scene() {
 	const { scene } = useGLTF("/models/isle_abeens_level1_baked.glb");
@@ -31,13 +33,18 @@ function Scene() {
 		return geometries;
 	}, [scene]);
 
-	useEffect(() => () => {
-		islandGeometries.forEach((geometry) => {
-			geometry.dispose();
-		});
-	}, [islandGeometries]);
+	useEffect(
+		() => () => {
+			islandGeometries.forEach((geometry) => {
+				geometry.dispose();
+			});
+		},
+		[islandGeometries],
+	);
 
 	useWaterObject("island", islandRef, islandGeometries);
+
+	const posts = usePokemonPosts();
 
 	return (
 		<div id="canvas-container">
@@ -47,7 +54,7 @@ function Scene() {
 					position: [0, 45, 70],
 					fov: 45,
 					rotation: [MathUtils.degToRad(-35), 0, 0],
-					near: 1
+					near: 1,
 				}}
 			>
 				<primitive
@@ -56,6 +63,9 @@ function Scene() {
 					scale={0.04}
 					position={[0, 0, 0]}
 				/>
+				{posts.map((item) => (
+					<Sprite key={item.key + "/sprite"} pokedex={item.pokedex} />
+				))}
 				<Ground />
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />

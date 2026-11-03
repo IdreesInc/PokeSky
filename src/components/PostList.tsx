@@ -7,7 +7,8 @@ function PostList() {
 	return (
 		<div className="postList">
 			{posts.map((item) => (
-				<span key={item.key}>{item.text}<br/>{item.key}</span>
+				// <span key={item.key}>{item.text}<br/>{item.key}</span>
+				<img src={`sprites/${item.pokedex}.png`} width="40" height="30" title={item.text}/>
 			))}
 		</div>
 	);

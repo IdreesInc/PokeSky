@@ -3,14 +3,13 @@ import PostList from "./components/PostList";
 import Scene from "./components/Scene";
 
 function App() {
-
 	return (
 		<>
 			<Scene />
-			<br/>
+			<br />
 			<PostList />
 		</>
-	)
+	);
 }
 
-export default App
+export default App;
