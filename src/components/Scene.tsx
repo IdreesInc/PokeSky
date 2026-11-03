@@ -5,7 +5,7 @@ import { useGLTF, OrbitControls, Stats } from "@react-three/drei";
 import { BufferGeometry, MathUtils, Matrix4, Mesh, Object3D } from "three";
 import WaterFloor from "./water/WaterFloor";
 import WaterWaveSimulation from "./water/WaterWaveSimulation";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useWaterObject } from "./water/hooks/useWaterObject";
 import WaterDepthIntersection from "./water/WaterDepthIntersection";
 import { Leva } from "leva";
@@ -30,6 +30,12 @@ function Scene() {
 		});
 		return geometries;
 	}, [scene]);
+
+	useEffect(() => () => {
+		islandGeometries.forEach((geometry) => {
+			geometry.dispose();
+		});
+	}, [islandGeometries]);
 
 	useWaterObject("island", islandRef, islandGeometries);
 

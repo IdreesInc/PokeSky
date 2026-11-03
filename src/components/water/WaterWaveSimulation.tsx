@@ -36,7 +36,6 @@ const WAVE_RES = 512;
 const TEXEL    = 1.0 / WAVE_RES;
 
 export default function WaterWaveSimulation() {
-  const { gl } = useThree();
   const displayRef      = useRef<THREE.Mesh>(null!);
   const pingIdx         = useRef(0);
   const needsInit       = useRef(true);
