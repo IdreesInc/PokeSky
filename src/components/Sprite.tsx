@@ -1,14 +1,23 @@
 import { useTexture } from "@react-three/drei";
 import "./Sprite.css";
-import { NearestFilter, type Sprite as ThreeSprite, type Vector3Tuple } from "three";
-import { useRef, useState } from "react";
+import {
+	NearestFilter,
+	Vector3,
+	type Sprite as ThreeSprite
+} from "three";
+import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 
 const SCALE = 0.3;
+const SPEED = 2.5;
 
 type SpriteProps = {
 	pokedex: number;
 };
+
+function getRandom() {
+	return new Vector3(randomBetween(-15, 15), 4, randomBetween(-10, 15));
+}
 
 function Sprite({ pokedex }: SpriteProps) {
 	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
@@ -17,22 +26,63 @@ function Sprite({ pokedex }: SpriteProps) {
 		texture.needsUpdate = true;
 	});
 	const spriteRef = useRef<ThreeSprite>(null);
-	const [position] = useState<Vector3Tuple>(() => {
-		return [randomBetween(-15, 15), 4, randomBetween(-10, 15)];
-	});
-	const [baseTime] = useState(() => Math.random() * 2); 
+	const fromPositionRef = useRef<Vector3>(getRandom());
+	const nextPositionRef = useRef<Vector3 | null>(null);
+	const [baseTime] = useState(() => Math.random() * 2);
+	const startTimeRef = useRef<number | null>(null);
+
+	useEffect(() => {
+		moveRandom();
+	}, []);
 
 	useFrame((state) => {
+		const sprite = spriteRef.current;
+		const fromPosition = fromPositionRef.current;
+		if (!sprite || !fromPosition) {
+			return;
+		}
+		const nextPosition = nextPositionRef.current;
+		if (nextPosition != null) {
+			// Hop to destination
+			startTimeRef.current ??= state.clock.elapsedTime;
+			const t = Math.min(
+				1,
+				(state.clock.elapsedTime - startTimeRef.current) /
+					getDuration(fromPosition, nextPosition),
+			);
+			sprite.position.lerpVectors(fromPosition, nextPosition, t);
+			if (t === 1) {
+				fromPosition.copy(nextPosition);
+				nextPositionRef.current = null;
+			}
+			sprite.position.y =
+				fromPosition.y +
+				(Math.round((baseTime + state.clock.elapsedTime) * 5) % 2 ? 0.6 : 0);
+		} else {
+			// Ambient bouncing
+			sprite.position.y =
+				fromPosition.y +
+				(Math.round((baseTime + state.clock.elapsedTime) * 2) % 2 ? 0.35 : 0);
+		}
+	});
+
+	function moveRandom() {
 		const sprite = spriteRef.current;
 		if (!sprite) {
 			return;
 		}
-		sprite.position.y = position[1] + (Math.round((baseTime + state.clock.elapsedTime) * 3) % 2 ? 0.6 : 0);
-	});
+		fromPositionRef.current.copy(sprite.position);
+		nextPositionRef.current = getRandom();
+		startTimeRef.current = null;
+	}
 
 	return (
 		<>
-			<sprite ref={spriteRef} scale={[20 * SCALE, 15 * SCALE, 1]} position={position}>
+			<sprite
+				ref={spriteRef}
+				scale={[20 * SCALE, 15 * SCALE, 1]}
+				position={fromPositionRef.current}
+			>
 				<spriteMaterial map={texture} alphaTest={0.5} />
 			</sprite>
 		</>
@@ -43,6 +93,10 @@ function randomBetween(min: number, max: number): number {
 	const minCeiled = Math.ceil(min);
 	const maxFloored = Math.floor(max);
 	return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+}
+
+function getDuration(from: Vector3, to: Vector3) {
+	return Math.hypot(to.x - from.x, to.z - from.z) / SPEED;
 }
 
 export default Sprite;
