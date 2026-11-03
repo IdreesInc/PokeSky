@@ -17,7 +17,7 @@ function Sprite({ pokedex }: SpriteProps) {
 	});
 
 	const [position] = useState<Vector3Tuple>(() => {
-		return [randomBetween(-15, 15), 4, randomBetween(0, 15)];
+		return [randomBetween(-15, 15), 4, randomBetween(-10, 15)];
 	});
 
 	return (
