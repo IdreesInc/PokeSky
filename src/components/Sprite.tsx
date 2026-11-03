@@ -1,7 +1,8 @@
 import { useTexture } from "@react-three/drei";
 import "./Sprite.css";
-import { NearestFilter, type Vector3Tuple } from "three";
-import { useState } from "react";
+import { NearestFilter, type Sprite as ThreeSprite, type Vector3Tuple } from "three";
+import { useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
 
 const SCALE = 0.3;
 
@@ -15,14 +16,23 @@ function Sprite({ pokedex }: SpriteProps) {
 		texture.magFilter = NearestFilter;
 		texture.needsUpdate = true;
 	});
-
+	const spriteRef = useRef<ThreeSprite>(null);
 	const [position] = useState<Vector3Tuple>(() => {
 		return [randomBetween(-15, 15), 4, randomBetween(-10, 15)];
+	});
+	const [baseTime] = useState(() => Math.random() * 2); 
+
+	useFrame((state) => {
+		const sprite = spriteRef.current;
+		if (!sprite) {
+			return;
+		}
+		sprite.position.y = position[1] + (Math.round((baseTime + state.clock.elapsedTime) * 3) % 2 ? 0.6 : 0);
 	});
 
 	return (
 		<>
-			<sprite scale={[20 * SCALE, 15 * SCALE, 1]} position={position}>
+			<sprite ref={spriteRef} scale={[20 * SCALE, 15 * SCALE, 1]} position={position}>
 				<spriteMaterial map={texture} alphaTest={0.5} />
 			</sprite>
 		</>
