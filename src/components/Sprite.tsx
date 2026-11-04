@@ -9,7 +9,7 @@ import type { PokemonPost } from "../store/pokemonPostStore";
 const SCALE = 0.3;
 const SPEED = 2.5;
 const FADE_IN_STEP = 0.01;
-const FADE_OUT_STEP = FADE_IN_STEP / 2;
+const FADE_OUT_STEP = 0.015;
 const EXPIRATION = 5 * 60;
 
 type SpriteProps = {
@@ -73,7 +73,7 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 			// Ambient bouncing
 			sprite.position.y =
 				fromPosition.y +
-				(Math.round((baseTime + state.clock.elapsedTime) * 2) % 2 ? 0.35 : 0);
+				(Math.round((baseTime + state.clock.elapsedTime) * 2) % 2 ? 0.3 : 0);
 		}
 		if (!uiActive && state.clock.elapsedTime - mountTime > EXPIRATION) {
 			setFadeOut(true);
