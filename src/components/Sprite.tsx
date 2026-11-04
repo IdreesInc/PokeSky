@@ -106,7 +106,7 @@ function Sprite({ pokedex, post }: SpriteProps) {
 				}}
 			>
 				{(uiActive || hovered) && <PostBubble post={post} preview={!uiActive} onMiss={() => setUiActive(false) }/>}
-				<spriteMaterial map={texture} alphaTest={0.5} />
+				<spriteMaterial map={texture} alphaTest={0.5} color="hsl(0, 0%, 90%)" />
 			</sprite>
 		</>
 	);
