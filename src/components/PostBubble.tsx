@@ -1,9 +1,10 @@
 import { Html } from "@react-three/drei";
 import "./PostBubble.css";
 import blueskyLogo from "../assets/Bluesky_Logo.svg";
+import type { PokemonPost } from "../store/pokemonPostStore";
 
 type PostBubbleProps = {
-	post: string;
+	post: PokemonPost;
 	preview: boolean;
 	onMiss: () => void;
 };
@@ -20,12 +21,14 @@ function PostBubble({ post, preview, onMiss }: PostBubbleProps) {
 				}}
 			>
 				<div
-					className={`postBubble ${preview ? "inactiveBubble" : "activeBubble"}`}
+					className={`card postBubble ${preview ? "inactiveBubble" : "activeBubble"}`}
 					onClick={(e) => e.stopPropagation()}
 				>
-					<div className="postText">{post}</div>
+					<div className="postText">{post.text}</div>
 				</div>
-				<img className="blueskyLogo" src={blueskyLogo} />
+				<a href={post.link} target="_blank" rel="noopener noreferrer">
+					<img className="blueskyLogo" src={blueskyLogo}/>
+				</a>
 			</Html>
 		</>
 	);

@@ -13,6 +13,7 @@
     "@bsky/jetstream": "^1.0.0",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
+    "modern-ahocorasick": "^3.3.0",
     "papaparse": "^5.7.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

@@ -5,4 +5,5 @@ export type WorkerMessage = {
 export type PostEvent = {
 	id: string;
 	contents: string;
+	link: string
 };

@@ -1,3 +1,4 @@
+import AhoCorasick from "modern-ahocorasick";
 import { getPokemon } from "../data/pokemon";
 import { onEvent } from "../firehose/firehoseClient";
 import type { PostEvent } from "../firehose/firehoseTypes";
@@ -7,31 +8,40 @@ export type PokemonPost = {
 	key: string;
 	pokedex: number;
 	text: string;
+	link: string;
 };
 
 let firehoseCleanup: () => void;
 const listeners = new Set<() => void>();
 let posts: readonly PokemonPost[] = [];
+const pokemon = getPokemon();
+const matchDetector = new AhoCorasick(
+	pokemon.map((mon) => ({
+		pattern: mon.name.toLowerCase(),
+		data: mon.pokedex,
+	})),
+	{ boundary: "unicode" },
+);
 
 function handleEvent(event: PostEvent) {
 	const contents = event.contents.toLowerCase();
-	const pokemon = getPokemon();
-	for (const mon of pokemon) {
-		for (const text of mon.matches) {
-			if (contents.includes(text)) {
-				console.log(event.contents + "\n" + text);
-				posts = [
-					...posts,
-					{
-						key: event.id + "/" + mon.pokedex,
-						pokedex: mon.pokedex,
-						text: event.contents,
-					},
-				];
-				for (const listener of listeners) {
-					listener();
-				}
-			}
+	const matches = matchDetector.search(contents, {
+		strategy: "leftmost-longest",
+	});
+	const deduped = new Set(matches.map((match) => match.data));
+	for (const pokedex of deduped) {
+		console.log(event.contents + "\n" + pokedex);
+		posts = [
+			...posts,
+			{
+				key: event.id + "/" + pokedex,
+				pokedex: pokedex as number,
+				text: event.contents,
+				link: event.link,
+			},
+		];
+		for (const listener of listeners) {
+			listener();
 		}
 	}
 }

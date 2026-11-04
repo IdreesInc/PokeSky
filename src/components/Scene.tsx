@@ -49,7 +49,7 @@ function Scene() {
 			<Leva hidden />
 			<Canvas
 				camera={{
-					position: [0, 45, 70],
+					position: [0, 43, 67.5],
 					fov: 45,
 					rotation: [MathUtils.degToRad(-35), 0, 0],
 					near: 1,
@@ -67,7 +67,6 @@ function Scene() {
 				<WaterWaveSimulation />
 				<WaterDepthIntersection />
 				<ambientLight intensity={1} />
-				{/* <Stats /> */}
 			</Canvas>
 		</div>
 	);

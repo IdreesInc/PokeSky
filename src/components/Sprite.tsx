@@ -4,26 +4,36 @@ import { NearestFilter, Vector3, type Sprite as ThreeSprite } from "three";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import PostBubble from "./PostBubble";
+import type { PokemonPost } from "../store/pokemonPostStore";
 
 const SCALE = 0.3;
 const SPEED = 2.5;
+const FADE_IN_STEP = 0.01;
+const FADE_OUT_STEP = FADE_IN_STEP / 2;
+const EXPIRATION = 5 * 60;
 
 type SpriteProps = {
 	pokedex: number;
-	post: string;
+	post: PokemonPost;
+	remove: () => void;
 };
 
 function getRandom() {
-	return new Vector3(randomBetween(-15, 15), 4, randomBetween(-10, 15));
+	const x = randomBetween(-20, 20);
+	const z = randomBetween(Math.abs(x) > 15 ? -8 : -10, 15);
+	return new Vector3(x, 4, z);
 }
 
-function Sprite({ pokedex, post }: SpriteProps) {
+function Sprite({ pokedex, post, remove }: SpriteProps) {
 	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
 		texture.minFilter = NearestFilter;
 		texture.magFilter = NearestFilter;
 		texture.needsUpdate = true;
 	});
+	const [opacity, setOpacity] = useState(0);
+	const [fadeOut, setFadeOut] = useState(false);
 	const spriteRef = useRef<ThreeSprite>(null);
+	const mountTimeRef = useRef<number | null>(null);
 	const fromPositionRef = useRef<Vector3>(getRandom());
 	const nextPositionRef = useRef<Vector3 | null>(null);
 	const [baseTime] = useState(() => Math.random() * 2);
@@ -41,6 +51,8 @@ function Sprite({ pokedex, post }: SpriteProps) {
 		if (!sprite || !fromPosition) {
 			return;
 		}
+		mountTimeRef.current ??= state.clock.elapsedTime;
+		const mountTime = mountTimeRef.current;
 		const nextPosition = nextPositionRef.current;
 		if (nextPosition != null) {
 			// Hop to destination
@@ -63,6 +75,18 @@ function Sprite({ pokedex, post }: SpriteProps) {
 				fromPosition.y +
 				(Math.round((baseTime + state.clock.elapsedTime) * 2) % 2 ? 0.35 : 0);
 		}
+		if (!uiActive && state.clock.elapsedTime - mountTime > EXPIRATION) {
+			setFadeOut(true);
+		}
+		if (!uiActive && fadeOut) {
+			if (opacity > 0) {
+				setOpacity(Math.max(0, opacity - FADE_OUT_STEP));
+			} else {
+				remove();
+			}
+		} else if (opacity < 1) {
+			setOpacity(Math.min(1.0, opacity + FADE_IN_STEP));
+		}
 	});
 
 	function moveRandom() {
@@ -80,7 +104,7 @@ function Sprite({ pokedex, post }: SpriteProps) {
 			fromPositionRef.current.copy(nextPositionRef.current);
 			nextPositionRef.current = null;
 		}
-		setTimeout(moveRandom, randomBetween(5000, 10000));
+		setTimeout(moveRandom, randomBetween(5000, 20000));
 	}
 
 	return (
@@ -93,7 +117,7 @@ function Sprite({ pokedex, post }: SpriteProps) {
 					setHovered(true);
 					e.stopPropagation();
 				}}
-				onPointerOut={(e) => {
+				onPointerOut={() => {
 					setHovered(false);
 				}}
 				onClick={(e) => {
@@ -101,12 +125,23 @@ function Sprite({ pokedex, post }: SpriteProps) {
 					setHovered(false);
 					e.stopPropagation();
 				}}
-				onPointerMissed={(e) => {
+				onPointerMissed={() => {
 					setUiActive(false);
 				}}
 			>
-				{(uiActive || hovered) && <PostBubble post={post} preview={!uiActive} onMiss={() => setUiActive(false) }/>}
-				<spriteMaterial map={texture} alphaTest={0.5} color="hsl(0, 0%, 90%)" />
+				{(uiActive || hovered) && (
+					<PostBubble
+						post={post}
+						preview={!uiActive}
+						onMiss={() => setUiActive(false)}
+					/>
+				)}
+				<spriteMaterial
+					map={texture}
+					alphaTest={0.5 * opacity}
+					color="hsl(0, 0%, 90%)"
+					opacity={opacity}
+				/>
 			</sprite>
 		</>
 	);
