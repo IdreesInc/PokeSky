@@ -67,7 +67,6 @@ function Scene() {
 				<WaterWaveSimulation />
 				<WaterDepthIntersection />
 				<ambientLight intensity={1} />
-				{/* <OrbitControls /> */}
 				{/* <Stats /> */}
 			</Canvas>
 		</div>

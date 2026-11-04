@@ -1,21 +1,23 @@
-import { useTexture } from "@react-three/drei";
+import { Html, useTexture } from "@react-three/drei";
 import "./Sprite.css";
 import { NearestFilter, Vector3, type Sprite as ThreeSprite } from "three";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
+import PostBubble from "./PostBubble";
 
 const SCALE = 0.3;
 const SPEED = 2.5;
 
 type SpriteProps = {
 	pokedex: number;
+	post: string;
 };
 
 function getRandom() {
 	return new Vector3(randomBetween(-15, 15), 4, randomBetween(-10, 15));
 }
 
-function Sprite({ pokedex }: SpriteProps) {
+function Sprite({ pokedex, post }: SpriteProps) {
 	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
 		texture.minFilter = NearestFilter;
 		texture.magFilter = NearestFilter;
@@ -86,6 +88,7 @@ function Sprite({ pokedex }: SpriteProps) {
 				scale={[20 * SCALE, 15 * SCALE, 1]}
 				position={fromPositionRef.current}
 			>
+				<PostBubble post={post} />
 				<spriteMaterial map={texture} alphaTest={0.5} />
 			</sprite>
 		</>

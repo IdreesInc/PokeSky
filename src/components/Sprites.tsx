@@ -9,7 +9,7 @@ function Sprites() {
 		<>
 			{posts.map((item) => (
 				<Suspense key={item.key + "/suspend"} fallback={null}>
-					<Sprite key={item.key} pokedex={item.pokedex} />
+					<Sprite key={item.key} pokedex={item.pokedex} post={item.text} />
 				</Suspense>
 			))}
 		</>
