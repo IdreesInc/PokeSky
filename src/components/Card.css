@@ -1,0 +1,28 @@
+.card {
+	--card-color: #ececec;
+
+	--card-background: color-mix(in oklab, var(--card-color) 80%, white);
+	--card-highlight: color-mix(in oklab, var(--card-color) 65%, white);
+	--card-bottom-shadow: var(--card-color);
+	--card-bottom-light: color-mix(in oklab, var(--card-color) 80%, white);
+	--card-border: color-mix(in oklab, var(--card-color) 90%, black);
+
+	border: 1px solid var(--card-border);
+	background-color: var(--card-background);
+	border-radius: 25px;
+	padding: 5px 8px;
+	min-width: 8em;
+	background-image:
+		radial-gradient(75% 5% at 50% 0%, var(--card-bottom-light), transparent),
+		radial-gradient(75% 50% at 50% 0%, var(--card-highlight), transparent),
+		radial-gradient(75% 35% at 50% 90%, var(--card-bottom-shadow), transparent);
+	box-shadow:
+		inset 0 -2px 4px 1px var(--card-bottom-light),
+		inset 0 -4px 4px 1px var(--card-bottom-shadow),
+		inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+		0 1px 4px 1px rgba(111, 111, 111, 0.2),
+		0 1px 4px 1px rgba(0, 0, 0, 0.1);
+	transition-property: border-color, transform, background-color;
+	transition-duration: 0.2s;
+	filter: drop-shadow(0px 4px 10px rgba(71, 71, 71, 0.5));
+}
