@@ -28,6 +28,8 @@ function Sprite({ pokedex, post }: SpriteProps) {
 	const nextPositionRef = useRef<Vector3 | null>(null);
 	const [baseTime] = useState(() => Math.random() * 2);
 	const startTimeRef = useRef<number | null>(null);
+	const [hovered, setHovered] = useState(false);
+	const [uiActive, setUiActive] = useState(false);
 
 	useEffect(() => {
 		moveRandom();
@@ -87,8 +89,23 @@ function Sprite({ pokedex, post }: SpriteProps) {
 				ref={spriteRef}
 				scale={[20 * SCALE, 15 * SCALE, 1]}
 				position={fromPositionRef.current}
+				onPointerOver={(e) => {
+					setHovered(true);
+					e.stopPropagation();
+				}}
+				onPointerOut={(e) => {
+					setHovered(false);
+				}}
+				onClick={(e) => {
+					setUiActive(!uiActive);
+					setHovered(false);
+					e.stopPropagation();
+				}}
+				onPointerMissed={(e) => {
+					setUiActive(false);
+				}}
 			>
-				<PostBubble post={post} />
+				{(uiActive || hovered) && <PostBubble post={post} preview={!uiActive} onMiss={() => setUiActive(false) }/>}
 				<spriteMaterial map={texture} alphaTest={0.5} />
 			</sprite>
 		</>
