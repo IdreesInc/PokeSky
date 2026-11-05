@@ -9,7 +9,7 @@ import type { PokemonPost } from "../store/pokemonPostStore";
 const SCALE = 0.3;
 const SPEED = 2.5;
 const FADE_IN_STEP = 0.01;
-const FADE_OUT_STEP = 0.015;
+const FADE_OUT_STEP = 0.02;
 const EXPIRATION = 5 * 60;
 
 type SpriteProps = {

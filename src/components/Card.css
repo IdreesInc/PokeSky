@@ -1,10 +1,10 @@
 .card {
-	--card-color: #ececec;
+	--card-color: #e6f3ff;
 
-	--card-background: color-mix(in oklab, var(--card-color) 80%, white);
-	--card-highlight: color-mix(in oklab, var(--card-color) 65%, white);
+	--card-background: color-mix(in oklab, var(--card-color) 70%, white);
+	--card-highlight: color-mix(in oklab, var(--card-color) 55%, white);
 	--card-bottom-shadow: var(--card-color);
-	--card-bottom-light: color-mix(in oklab, var(--card-color) 80%, white);
+	--card-bottom-light: color-mix(in oklab, var(--card-color) 60%, white);
 	--card-border: color-mix(in oklab, var(--card-color) 90%, black);
 
 	border: 1px solid var(--card-border);

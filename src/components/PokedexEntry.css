@@ -1,4 +1,68 @@
 .pokedexEntry {
 	width: 200px;
-	background: red;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: end;
+	padding-bottom: 25px;
+}
+
+.pokedexEntry > img {
+	width: 130px;
+	height: auto;
+}
+
+.normalType {
+	--card-color: #82817c;
+}
+.fireType {
+	--card-color: #f46421;
+}
+.waterType {
+	--card-color: #298ae3;
+}
+.grassType {
+	--card-color: #16b924;
+}
+.electricType {
+	--card-color: #F7D02C;
+}
+.iceType {
+	--card-color: #96D9D6;
+}
+.fightingType {
+	--card-color: #C22E28;
+}
+.poisonType {
+	--card-color: #A33EA1;
+}
+.groundType {
+	--card-color: #E2BF65;
+}
+.flyingType {
+	--card-color: #A98FF3;
+}
+.psychicType {
+	--card-color: #F95587;
+}
+.bugType {
+	--card-color: #A6B91A;
+}
+.rockType {
+	--card-color: #B6A136;
+}
+.ghostType {
+	--card-color: #735797;
+}
+.dragonType {
+	--card-color: #6F35FC;
+}
+.darkType {
+	--card-color: #705746;
+}
+.steelType {
+	--card-color: #B7B7CE;
+}
+.fairyType {
+	--card-color: #D685AD;
 }
