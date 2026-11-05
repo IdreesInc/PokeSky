@@ -11,12 +11,6 @@
 	word-wrap: break-word;
 }
 
-.postBubble:active {
-	border-color: #0048d5;
-	transform: scale(0.96);
-	background-color: #0048d5;
-}
-
 .activeBubble {
 	min-height: 80px;
 	border-color: #3496ff;
@@ -24,6 +18,10 @@
 	opacity: 1;
 	transition-duration: 0.1s;
 	filter: drop-shadow(0px 4px 10px #3496ff4e);
+}
+
+.inactiveBubble {
+	opacity: 0.85;
 }
 
 .inactiveBubble::after {

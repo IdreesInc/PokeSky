@@ -11,11 +11,9 @@ function PokedexEntry({ pokemon, caught }: PokedexEntryProps) {
 	return (
 		<div
 			className={`pokedexEntry card ${caught ? "" : "uncaught"} ${pokemon.primaryType.toLowerCase()}Type`}
+			id={`pokedexEntry${pokemon.pokedex}`}
 		>
-			<img
-				src={`renders/${pokemon.pokedex}.webp`}
-				loading="lazy"
-			></img>
+			<img src={`renders/${pokemon.pokedex}.webp`} loading="lazy"></img>
 		</div>
 	);
 }

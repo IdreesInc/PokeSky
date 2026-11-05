@@ -1,4 +1,4 @@
-import { Html, useTexture } from "@react-three/drei";
+import { Html, useCursor, useTexture } from "@react-three/drei";
 import "./Sprite.css";
 import { NearestFilter, Vector3, type Sprite as ThreeSprite } from "three";
 import { useEffect, useRef, useState } from "react";
@@ -8,30 +8,38 @@ import type { PokemonPost } from "../store/pokemonPostStore";
 
 const SCALE = 0.3;
 const SPEED = 2.5;
-const FADE_IN_STEP = 0.01;
+const FADE_IN_STEP = 0.015;
 const FADE_OUT_STEP = 0.02;
-const EXPIRATION = 5 * 60;
+const EXPIRATION = 4 * 60;
 
 type SpriteProps = {
 	pokedex: number;
+	caught: boolean;
 	post: PokemonPost;
+	onClick: () => void;
 	remove: () => void;
 };
 
-function getRandom() {
+function getRandom(towardsFront: boolean = false) {
 	const x = randomBetween(-20, 20);
-	const z = randomBetween(Math.abs(x) > 15 ? -8 : -10, 15);
+	const z = towardsFront
+		? randomBetween(5, 15)
+		: randomBetween(Math.abs(x) > 15 ? -8 : -10, 15);
 	return new Vector3(x, 4, z);
 }
 
-function Sprite({ pokedex, post, remove }: SpriteProps) {
+function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
 		texture.minFilter = NearestFilter;
 		texture.magFilter = NearestFilter;
 		texture.needsUpdate = true;
 	});
+	const textureRight = texture.clone();
+	textureRight.repeat.x = -1;
+	textureRight.offset.x = 1;
 	const [opacity, setOpacity] = useState(0);
 	const [fadeOut, setFadeOut] = useState(false);
+	const [flipped, setFlipped] = useState(false);
 	const spriteRef = useRef<ThreeSprite>(null);
 	const mountTimeRef = useRef<number | null>(null);
 	const fromPositionRef = useRef<Vector3>(getRandom());
@@ -40,6 +48,8 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 	const startTimeRef = useRef<number | null>(null);
 	const [hovered, setHovered] = useState(false);
 	const [uiActive, setUiActive] = useState(false);
+
+	useCursor(hovered);
 
 	useEffect(() => {
 		moveRandom();
@@ -84,8 +94,8 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 			} else {
 				remove();
 			}
-		} else if (opacity < 1) {
-			setOpacity(Math.min(1.0, opacity + FADE_IN_STEP));
+		} else if (opacity < (caught ? 1 : 0.8)) {
+			setOpacity(Math.min(caught ? 1 : 0.8, opacity + FADE_IN_STEP));
 		}
 	});
 
@@ -95,8 +105,9 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 			return;
 		}
 		fromPositionRef.current.copy(sprite.position);
-		nextPositionRef.current = getRandom();
+		nextPositionRef.current = getRandom(!caught);
 		startTimeRef.current = null;
+		setFlipped(fromPositionRef.current.x < nextPositionRef.current.x);
 	}
 
 	function endMove() {
@@ -123,6 +134,7 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 				onClick={(e) => {
 					setUiActive(!uiActive);
 					setHovered(false);
+					onClick();
 					e.stopPropagation();
 				}}
 				onPointerMissed={() => {
@@ -137,9 +149,9 @@ function Sprite({ pokedex, post, remove }: SpriteProps) {
 					/>
 				)}
 				<spriteMaterial
-					map={texture}
+					map={flipped ? textureRight : texture}
 					alphaTest={0.5 * opacity}
-					color="hsl(0, 0%, 90%)"
+					color={caught ? "hsl(0, 0%, 90%)" : "black"}
 					opacity={opacity}
 				/>
 			</sprite>

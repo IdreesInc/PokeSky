@@ -1,12 +1,12 @@
 .pokedex {
+	margin-top: -210px;
 	box-sizing: border-box;
 	width: 100%;
-	height: 200px;
+	height: 210px;
 	display: flex;
 	flex-direction: row;
-	/* justify-content: space-between; */
+	justify-content: space-between;
 	gap: 30px;
-	padding: 0 20px 20px;
+	padding: 0 20px 30px;
 	overflow-x: scroll;
-	/* background: rgba(255, 255, 255, 0.366); */
 }
