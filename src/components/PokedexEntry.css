@@ -8,6 +8,7 @@
 	justify-content: end;
 	padding-bottom: 25px;
 	transition-duration: 0.1s;
+	user-select: none;
 }
 
 .pokedexEntry > img {
@@ -19,6 +20,11 @@
 	transition-duration: 0.1s;
 }
 
+.uncaught > img {
+	filter: brightness(0);
+	opacity: 0.8;
+}
+
 .normalType {
 	--card-color: #82817c;
 }
@@ -26,7 +32,7 @@
 	--card-color: #f44821;
 }
 .waterType {
-	--card-color: #298ae3;
+	--card-color: #3178e2;
 }
 .grassType {
 	--card-color: #16b924;
@@ -53,7 +59,7 @@
 	--card-color: #f95587;
 }
 .bugType {
-	--card-color: #a6b91a;
+	--card-color: #89b91a;
 }
 .rockType {
 	--card-color: #b6a136;

@@ -8,7 +8,7 @@ function Pokedex() {
 	return (
 		<div className="pokedex">
 			{pokemon.map((mon) => (
-				<PokedexEntry pokemon={mon} />
+				<PokedexEntry pokemon={mon} caught />
 			))}
 		</div>
 	);

@@ -4,12 +4,13 @@ import "./PokedexEntry.css";
 
 type PokedexEntryProps = {
 	pokemon: Pokemon;
+	caught: boolean;
 };
 
-function PokedexEntry({ pokemon }: PokedexEntryProps) {
+function PokedexEntry({ pokemon, caught }: PokedexEntryProps) {
 	return (
 		<div
-			className={`pokedexEntry card ${pokemon.primaryType.toLowerCase()}Type`}
+			className={`pokedexEntry card ${caught ? "" : "uncaught"} ${pokemon.primaryType.toLowerCase()}Type`}
 		>
 			<img
 				src={`renders/${pokemon.pokedex}.webp`}
