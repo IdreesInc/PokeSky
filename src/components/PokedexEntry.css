@@ -1,15 +1,22 @@
 .pokedexEntry {
-	width: 200px;
+	width: 130px;
+	position: relative;
 	display: flex;
 	flex-direction: column;
+	flex: none;
 	align-items: start;
 	justify-content: end;
 	padding-bottom: 25px;
+	transition-duration: 0.1s;
 }
 
 .pokedexEntry > img {
 	width: 130px;
 	height: auto;
+	filter: drop-shadow(3px 0px 0px #ffffff) drop-shadow(-3px 0px 0px #ffffff)
+		drop-shadow(0px 3px 0px #ffffff) drop-shadow(0px -3px 0px #ffffff)
+		drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+	transition-duration: 0.1s;
 }
 
 .normalType {
@@ -25,44 +32,44 @@
 	--card-color: #16b924;
 }
 .electricType {
-	--card-color: #F7D02C;
+	--card-color: #f7d02c;
 }
 .iceType {
-	--card-color: #96D9D6;
+	--card-color: #96d9d6;
 }
 .fightingType {
-	--card-color: #C22E28;
+	--card-color: #c22e28;
 }
 .poisonType {
-	--card-color: #A33EA1;
+	--card-color: #a33ea1;
 }
 .groundType {
-	--card-color: #E2BF65;
+	--card-color: #e2bf65;
 }
 .flyingType {
-	--card-color: #A98FF3;
+	--card-color: #a98ff3;
 }
 .psychicType {
-	--card-color: #F95587;
+	--card-color: #f95587;
 }
 .bugType {
-	--card-color: #A6B91A;
+	--card-color: #a6b91a;
 }
 .rockType {
-	--card-color: #B6A136;
+	--card-color: #b6a136;
 }
 .ghostType {
 	--card-color: #735797;
 }
 .dragonType {
-	--card-color: #6F35FC;
+	--card-color: #6f35fc;
 }
 .darkType {
 	--card-color: #323265;
 }
 .steelType {
-	--card-color: #B7B7CE;
+	--card-color: #b7b7ce;
 }
 .fairyType {
-	--card-color: #D685AD;
+	--card-color: #d685ad;
 }
