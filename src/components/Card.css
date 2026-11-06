@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
+
 .card {
 	--card-color: #e6f3ff;
 
@@ -11,7 +13,6 @@
 	background-color: var(--card-background);
 	border-radius: 25px;
 	padding: 5px 8px;
-	min-width: 8em;
 	background-image:
 		radial-gradient(75% 5% at 50% 0%, var(--card-bottom-light), transparent),
 		radial-gradient(75% 50% at 50% 0%, var(--card-highlight), transparent),
@@ -25,4 +26,5 @@
 	transition-property: border-color, transform, background-color;
 	transition-duration: 0.2s;
 	filter: drop-shadow(0px 4px 10px rgba(71, 71, 71, 0.5));
+	font-family: "Noto Sans JP", sans-serif;
 }

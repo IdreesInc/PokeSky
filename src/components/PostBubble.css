@@ -1,11 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
 
 .postBubble {
 	box-sizing: border-box;
 	position: relative;
 	width: 300px;
 	height: 80px;
-	font-family: "Noto Sans JP", sans-serif;
 	position: relative;
 	overflow: hidden;
 	word-wrap: break-word;

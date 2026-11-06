@@ -1,20 +1,86 @@
+@font-face {
+	font-family: "Unown";
+	src: url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.eot");
+	src:
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.eot?#iefix")
+			format("embedded-opentype"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff2")
+			format("woff2"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff")
+			format("woff"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.ttf")
+			format("truetype"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.svg#Unown")
+			format("svg");
+}
+
 .pokedexEntry {
-	width: 130px;
-	height: 160px;
+	width: 140px;
+	height: 200px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	flex: none;
-	align-items: start;
-	justify-content: end;
-	padding-bottom: 25px;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 12px;
 	transition-duration: 0.1s;
 	user-select: none;
 	pointer-events: all;
+	font-family: "Noto Sans JP", sans-serif;
+}
+
+.pokemonName {
+	color: white;
+	width: 100%;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 500;
+	padding-bottom: 5px;
+	transition-duration: 0.1s;
+}
+
+.uncaught > .pokemonName,
+.uncaught > .typeHolder {
+	font-family: "Unown", "Noto Sans JP", sans-serif;
+	text-transform: uppercase;
+	opacity: 0.25;
+}
+
+.typeHolder {
+	display: flex;
+	width: 100%;
+	padding: 0 20px;
+	margin-top: 2px;
+	align-self: center;
+	justify-content: space-evenly;
+	gap: 5px;
+	flex-direction: row;
+	transition-duration: 0.1s;
+}
+
+.type {
+	width: 60px;
+	height: 15px;
+	background: var(--card-color);
+	border-radius: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 3px 3px 4px;
+	text-transform: uppercase;
+	color: white;
+	/* filter: drop-shadow(0px 0px 3px rgba(244, 244, 244, 0.5)); */
+	border-color: white;
+	border-width: 2px;
+	border-style: solid;
 }
 
 .pokedexEntry > img {
-	width: 130px;
+	width: 140px;
 	height: auto;
 	filter: drop-shadow(3px 0px 0px #ffffff) drop-shadow(-3px 0px 0px #ffffff)
 		drop-shadow(0px 3px 0px #ffffff) drop-shadow(0px -3px 0px #ffffff)
@@ -28,7 +94,7 @@
 }
 
 .justCaught {
-	animation: unlock 2.75s ease-in-out 0s 1;;
+	animation: unlock 2.75s ease-in-out 0s 1;
 }
 
 @keyframes unlock {
