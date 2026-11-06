@@ -3,6 +3,8 @@ import { useCaught } from "../hooks/useCaught";
 import "./Pokedex.css";
 import PokedexEntry from "./PokedexEntry";
 
+const LOAD_TIME = Date.now();
+
 function Pokedex() {
 	const pokemon = getPokemon();
 	const { caught } = useCaught();
@@ -14,6 +16,7 @@ function Pokedex() {
 					key={mon.pokedex}
 					pokemon={mon}
 					caught={caught[mon.pokedex] != undefined}
+					justCaught={(caught[mon.pokedex]?.time ?? 0) > LOAD_TIME}
 				/>
 			))}
 		</div>

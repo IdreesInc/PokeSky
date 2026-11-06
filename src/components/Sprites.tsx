@@ -20,9 +20,6 @@ function Sprites() {
 							caught={caught[item.pokedex] !== undefined}
 							post={item}
 							onClick={() => {
-								if (caught[item.pokedex] === undefined) {
-									catchPokemon(item.pokedex, item.link);
-								}
 								const element = document.getElementById(
 									`pokedexEntry${item.pokedex}`,
 								);
@@ -37,6 +34,11 @@ function Sprites() {
 											(container.clientWidth - element.clientWidth) / 2,
 										behavior: "smooth",
 									});
+									setTimeout(() => {
+										if (caught[item.pokedex] === undefined) {
+											catchPokemon(item.pokedex, item.link);
+										}
+									}, 300);
 								}
 							}}
 							remove={() => setRemoved((prev) => new Set(prev).add(item.key))}
