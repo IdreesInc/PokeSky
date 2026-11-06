@@ -38,7 +38,7 @@ function Sprites() {
 										if (caught[item.pokedex] === undefined) {
 											catchPokemon(item.pokedex, item.link);
 										}
-									}, 300);
+									}, 850);
 								}
 							}}
 							remove={() => setRemoved((prev) => new Set(prev).add(item.key))}
