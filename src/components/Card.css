@@ -7,7 +7,7 @@
 	--card-highlight: color-mix(in oklab, var(--card-color) 55%, white);
 	--card-bottom-shadow: var(--card-color);
 	--card-bottom-light: color-mix(in oklab, var(--card-color) 60%, white);
-	--card-border: color-mix(in oklab, var(--card-color) 90%, black);
+	--card-border: color-mix(in oklab, var(--card-color) 85%, white);
 
 	border: 1px solid var(--card-border);
 	background-color: var(--card-background);
