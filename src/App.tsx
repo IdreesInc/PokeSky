@@ -9,7 +9,6 @@ let source: AudioBufferSourceNode | null;
 let playing = false;
 
 if (audioCtx.state === "suspended") {
-	// Play on interaction
 	const resume = () => audioCtx.resume();
 	window.addEventListener("pointerdown", resume, { once: true });
 	window.addEventListener("keydown", resume, { once: true });
@@ -25,8 +24,8 @@ async function playMusic() {
 	source = audioCtx.createBufferSource();
 	source.buffer = buffer;
 	source.loop = true;
-	source.loopStart = 58.5;
-	source.loopEnd = 3000;
+	source.loopStart = 1.0;
+	source.loopEnd = 58.5;
 	source.connect(audioCtx.destination);
 	source.start();
 }
