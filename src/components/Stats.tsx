@@ -83,7 +83,8 @@ function Stats() {
 						);
 					})}
 			</div>
-			<div className="card genOther"></div>
+			<div className="card genOther">
+			</div>
 		</div>
 	);
 }
