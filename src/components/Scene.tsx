@@ -49,7 +49,7 @@ function Scene() {
 			<Leva hidden />
 			<Canvas
 				camera={{
-					position: [0, 43, 72],
+					position: [0, 43, 75],
 					fov: 45,
 					rotation: [MathUtils.degToRad(-35), 0, 0],
 					near: 1,

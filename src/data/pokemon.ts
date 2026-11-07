@@ -4,6 +4,7 @@ import Papa from "papaparse";
 interface PokemonCsvRow {
 	pokedex: number;
 	name: string;
+	generation: number;
 	primaryType: string;
 	secondaryType: string | null;
 }
@@ -11,6 +12,7 @@ interface PokemonCsvRow {
 export interface Pokemon {
 	pokedex: number;
 	name: string;
+	generation: number;
 	primaryType: string;
 	secondaryType: string | null;
 }
@@ -27,8 +29,9 @@ for (const mon of csvData) {
 	pokemon.push({
 		pokedex: mon.pokedex,
 		name: mon.name,
+		generation: mon.generation,
 		primaryType: mon.primaryType,
-		secondaryType: mon.secondaryType
+		secondaryType: mon.secondaryType,
 	});
 }
 

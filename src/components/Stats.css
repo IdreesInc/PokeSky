@@ -1,0 +1,26 @@
+.stats {
+	box-sizing: border-box;
+	width: 100%;
+	/* height: 50vh; */
+	display: flex;
+	flex-direction: row;
+	padding: 30px;
+	gap: 30px;
+}
+
+.genStats {
+	flex-basis: 66%;
+	width: 66%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 15px;
+	--card-color: rgb(0, 8, 255);
+	align-items: end;
+}
+
+.genOther {
+	flex-basis: 33%;
+	width: 33%;
+	--card-color: red;
+}

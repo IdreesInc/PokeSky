@@ -1,4 +1,4 @@
-import { Html, useCursor, useTexture } from "@react-three/drei";
+import { useCursor, useTexture } from "@react-three/drei";
 import "./Sprite.css";
 import { NearestFilter, Vector3, type Sprite as ThreeSprite } from "three";
 import { useEffect, useRef, useState } from "react";
@@ -70,7 +70,7 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 			const t = Math.min(
 				1,
 				(state.clock.elapsedTime - startTimeRef.current) /
-					getDuration(fromPosition, nextPosition),
+				getDuration(fromPosition, nextPosition),
 			);
 			sprite.position.lerpVectors(fromPosition, nextPosition, t);
 			if (t === 1) {
