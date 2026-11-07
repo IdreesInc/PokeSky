@@ -2,16 +2,11 @@
 	font-family: "Unown";
 	src: url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.eot");
 	src:
-		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.eot?#iefix")
-			format("embedded-opentype"),
-		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff2")
-			format("woff2"),
-		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff")
-			format("woff"),
-		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.ttf")
-			format("truetype"),
-		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.svg#Unown")
-			format("svg");
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.eot?#iefix") format("embedded-opentype"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff2") format("woff2"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.woff") format("woff"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.ttf") format("truetype"),
+		url("https://db.onlinewebfonts.com/t/6120639772c6c60a2fad6742051c6feb.svg#Unown") format("svg");
 }
 
 .pokedexEntry {
@@ -31,16 +26,14 @@
 	font-family: "Noto Sans JP", sans-serif;
 }
 
-.pokedexEntry > img {
+.pokedexEntry>img {
 	width: 130px;
 	height: auto;
-	filter: drop-shadow(3px 0px 0px #ffffff) drop-shadow(-3px 0px 0px #ffffff)
-		drop-shadow(0px 3px 0px #ffffff) drop-shadow(0px -3px 0px #ffffff)
-		drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+	filter: drop-shadow(3px 0px 0px #ffffff) drop-shadow(-3px 0px 0px #ffffff) drop-shadow(0px 3px 0px #ffffff) drop-shadow(0px -3px 0px #ffffff) drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
 	transition-duration: 0.1s;
 }
 
-.uncaught > img {
+.uncaught>img {
 	filter: brightness(0);
 	opacity: 0.8;
 }
@@ -55,8 +48,8 @@
 	transition-duration: 0.1s;
 }
 
-.uncaught > .pokemonName,
-.uncaught > .typeHolder {
+.uncaught>.pokemonName,
+.uncaught>.typeHolder {
 	font-family: "Unown", "Noto Sans JP", sans-serif;
 	text-transform: uppercase;
 	opacity: 0.3;
@@ -102,17 +95,22 @@
 		transform: rotateY(0deg);
 		filter: brightness(0);
 		box-shadow: none;
+		pointer-events: none;
 	}
 
 	35% {
 		transform: rotateY(720deg) translate(0, -50vh) scale(1.5);
 		filter: brightness(1);
 		box-shadow: 0px 0px 100px var(--card-color);
+		pointer-events: none;
 	}
+
 	65% {
 		transform: rotateY(720deg) translate(0, -50vh) scale(1.5);
 		filter: brightness(1);
+		pointer-events: none;
 	}
+
 	100% {
 		transform: rotateY(0deg);
 		filter: brightness(1);
@@ -123,54 +121,71 @@
 .normalType {
 	--card-color: #82817c;
 }
+
 .fireType {
 	--card-color: #f44821;
 }
+
 .waterType {
 	--card-color: #3178e2;
 }
+
 .grassType {
 	--card-color: #16b924;
 }
+
 .electricType {
 	--card-color: #f7d02c;
 }
+
 .iceType {
 	--card-color: #96d9d6;
 }
+
 .fightingType {
 	--card-color: #c22e28;
 }
+
 .poisonType {
 	--card-color: #a33ea1;
 }
+
 .groundType {
 	--card-color: #e2bf65;
 }
+
 .flyingType {
 	--card-color: #a98ff3;
 }
+
 .psychicType {
 	--card-color: #f95587;
 }
+
 .bugType {
 	--card-color: #89b91a;
 }
+
 .rockType {
 	--card-color: #b6a136;
 }
+
 .ghostType {
 	--card-color: #735797;
 }
+
 .dragonType {
 	--card-color: #6f35fc;
 }
+
 .darkType {
 	--card-color: #323265;
 }
+
 .steelType {
 	--card-color: #b7b7ce;
 }
+
 .fairyType {
 	--card-color: #d685ad;
 }

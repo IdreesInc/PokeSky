@@ -19,7 +19,7 @@ export function useCaught() {
 			...prev,
 			[pokedex]: { time: Date.now(), postUrl },
 		}));
-		console.log(Object.keys(caught).length  + " / 1025");
+		console.log(Object.keys(caught).length + " / 1025");
 	}
 
 	return { caught, catchPokemon };

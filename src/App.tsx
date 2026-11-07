@@ -1,4 +1,5 @@
 import "./App.css";
+import Diploma from "./components/Diploma";
 import Pokedex from "./components/Pokedex";
 import Scene from "./components/Scene";
 import Stats from "./components/Stats";
@@ -9,6 +10,7 @@ function App() {
 			<Scene />
 			<Pokedex />
 			<Stats />
+			<Diploma />
 		</>
 	);
 }
