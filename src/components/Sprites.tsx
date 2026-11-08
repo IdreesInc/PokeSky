@@ -3,7 +3,11 @@ import { usePokemonPosts } from "../store/pokemonPostStore";
 import { Suspense, useState } from "react";
 import { useCaught } from "../hooks/useCaught";
 
-function Sprites() {
+type SpritesProps = {
+	criesEnabled: boolean;
+};
+
+function Sprites({ criesEnabled }: SpritesProps) {
 	const posts = usePokemonPosts();
 	const { caught, catchPokemon } = useCaught();
 	const [removed, setRemoved] = useState(new Set<string>());
@@ -19,6 +23,7 @@ function Sprites() {
 							pokedex={item.pokedex}
 							caught={caught[item.pokedex] !== undefined}
 							post={item}
+							criesEnabled={criesEnabled}
 							onClick={() => {
 								const element = document.getElementById(
 									`pokedexEntry${item.pokedex}`,

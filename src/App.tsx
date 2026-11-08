@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import Controls from "./components/Controls";
 import Diploma from "./components/Diploma";
 import Pokedex from "./components/Pokedex";
 import Scene from "./components/Scene";
@@ -33,12 +35,29 @@ async function playMusic() {
 playMusic();
 
 function App() {
+	const [musicEnabled, setMusicEnabled] = useState(true);
+	const [criesEnabled, setCriesEnabled] = useState(true);
+
+	useEffect(() => {
+		if (musicEnabled) {
+			audioCtx.resume();
+		} else {
+			audioCtx.suspend();
+		}
+	}, [musicEnabled])
+
 	return (
 		<>
-			<Scene />
+			<Scene criesEnabled={criesEnabled} />
 			<Pokedex />
 			<Stats />
 			<Diploma />
+			<Controls
+				musicEnabled={musicEnabled}
+				criesEnabled={criesEnabled}
+				toggleMusicEnabled={() => setMusicEnabled(!musicEnabled)}
+				toggleCriesEnabled={() => setCriesEnabled(!criesEnabled)}
+			/>
 		</>
 	);
 }
@@ -49,5 +68,5 @@ if (import.meta.hot) {
 	import.meta.hot.dispose(() => {
 		source?.stop();
 		audioCtx.close();
-	})
+	});
 }

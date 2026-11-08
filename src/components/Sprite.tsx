@@ -16,6 +16,7 @@ type SpriteProps = {
 	pokedex: number;
 	caught: boolean;
 	post: PokemonPost;
+	criesEnabled: boolean;
 	onClick: () => void;
 	remove: () => void;
 };
@@ -28,7 +29,7 @@ function getRandom(towardsFront: boolean = false) {
 	return new Vector3(x, 4, z);
 }
 
-function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
+function Sprite({ pokedex, caught, post, criesEnabled, onClick, remove }: SpriteProps) {
 	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
 		texture.minFilter = NearestFilter;
 		texture.magFilter = NearestFilter;
@@ -137,7 +138,7 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 				}}
 				onClick={(e) => {
 					setUiActive(!uiActive);
-					if (!uiActive) {
+					if (!uiActive && criesEnabled) {
 						const cry = new Audio(cryUri(pokedex));
 						cry.volume = 0.9;
 						cry.play().catch(() => { });

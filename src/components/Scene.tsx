@@ -10,7 +10,11 @@ import WaterDepthIntersection from "./water/WaterDepthIntersection";
 import { Leva } from "leva";
 import Sprites from "./Sprites";
 
-function Scene() {
+type SceneProps = {
+	criesEnabled: boolean;
+};
+
+function Scene({ criesEnabled }: SceneProps) {
 	const { scene: islandModel } = useGLTF(
 		"/models/isle_abeens_level1_baked.glb",
 	);
@@ -61,7 +65,7 @@ function Scene() {
 					scale={0.04}
 					position={[0, 0, 0]}
 				/>
-				<Sprites />
+				<Sprites criesEnabled={criesEnabled} />
 				<Ground />
 				<WaterFloor deepOpacityOverride={0.95} />
 				<WaterWaveSimulation />

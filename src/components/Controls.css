@@ -1,0 +1,20 @@
+.controls {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	flex-direction: row;
+	color: white;
+	gap: 10px;
+}
+
+.control {
+	opacity: 0.5;
+	transition-duration: 0.1s;
+}
+
+.control:hover {
+	opacity: 1;
+	transition-duration: 0.1s;
+	cursor: pointer;
+}
