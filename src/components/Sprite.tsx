@@ -169,6 +169,9 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 }
 
 function cryUri(pokedex: number) {
+	if (pokedex === 25) {
+		return "audio/pikachu.mp3";
+	}
 	return `https://cdn.jsdelivr.net/gh/PokeAPI/cries/cries/pokemon/latest/${pokedex}.ogg`;
 }
 
