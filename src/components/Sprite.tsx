@@ -55,6 +55,10 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 		moveRandom();
 	}, []);
 
+	useEffect(() => {
+		fetch(cryUri(pokedex)).catch(() => { });
+	}, []);
+
 	useFrame((state) => {
 		const sprite = spriteRef.current;
 		const fromPosition = fromPositionRef.current;
@@ -133,6 +137,11 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 				}}
 				onClick={(e) => {
 					setUiActive(!uiActive);
+					if (!uiActive) {
+						const cry = new Audio(cryUri(pokedex));
+						cry.volume = 0.9;
+						cry.play().catch(() => { });
+					}
 					setHovered(false);
 					onClick();
 					e.stopPropagation();
@@ -157,6 +166,10 @@ function Sprite({ pokedex, caught, post, onClick, remove }: SpriteProps) {
 			</sprite>
 		</>
 	);
+}
+
+function cryUri(pokedex: number) {
+	return `https://cdn.jsdelivr.net/gh/PokeAPI/cries/cries/pokemon/latest/${pokedex}.ogg`;
 }
 
 function randomBetween(min: number, max: number): number {
