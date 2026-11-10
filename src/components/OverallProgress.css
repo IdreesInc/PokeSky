@@ -47,7 +47,6 @@
 	--radius: calc((var(--size) - var(--stroke-width)) / 2);
 	--circumference: calc(var(--radius) * pi * 2);
 	--dash: calc((var(--progress) * var(--circumference)) / 100);
-	animation: progress-animation 5s linear 0s 1 forwards;
 	background: rgba(0, 0, 0, 0.178);
 	border-radius: 1000px;
 	border-style: solid;

@@ -2,7 +2,7 @@ import "./Motivation.css";
 import { useCaught } from "../hooks/useCaught";
 
 const MESSAGES: [number, string][] = [
-	[0, "Looks like your adventure is just beginning!"],
+	[-1, "Looks like your adventure is just beginning!"],
 	[12, "Over a dozen Pokémon caught, look at you go!"],
 	[50, "You are \"catching\" on pretty quickly! Get it?"],
 	[100, "You've already reached 100, impressive!"],
