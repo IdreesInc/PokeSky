@@ -1,9 +1,8 @@
 import { getPokemon } from "../data/pokemon";
 import { useCaught } from "../hooks/useCaught";
-import OverallProgress from "./OverallProgress";
+import OverallProgress from "./RankProgress";
 import ProgressBar from "./ProgressBar";
 import "./Stats.css";
-
 // const colors = [
 // 	// "#5e77f2",
 // 	"#7779d8",
@@ -88,7 +87,13 @@ function Stats() {
 				<div className="card catchStats">
 					<OverallProgress />
 				</div>
-				<div className="card bioStats"></div>
+				<div className="card bioStats">
+					<div>Made by Idrees Hassan, follow along @idreesinc.com</div>
+					<div>Developed and designed by hand</div>
+					<div>Source code: https://github.com/IdreesInc/PokéSky</div>
+					<div style={{ fontStyle: "italic", fontSize: "16px" }}>Pokémon, names, sprites, and the assets used in this project are solely owned by the Pokémon Company, Game Freak, and Nintendo. This project is unaffiliated with the aforementioned companies.</div>
+					<div style={{ fontStyle: "italic", fontSize: "14px", opacity: 0.85 }}>Privacy Policy</div>
+				</div>
 			</div>
 		</div>
 	);

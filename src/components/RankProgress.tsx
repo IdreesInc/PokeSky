@@ -1,6 +1,6 @@
 import { useCaught } from "../hooks/useCaught";
 import Motivation from "./Motivation";
-import "./OverallProgress.css";
+import "./RankProgress.css";
 
 const RANKS = [
 	"Poke",
@@ -30,7 +30,7 @@ const RANKS = [
 const TOTAL_POKEMON = 1025;
 const RANK_INCR = 50;
 
-function OverallProgress() {
+function RankProgress() {
 	const { caught } = useCaught();
 	const amountCaught = Object.keys(caught).length;
 	const complete = amountCaught === TOTAL_POKEMON;
@@ -45,7 +45,7 @@ function OverallProgress() {
 		<div className="ballWrapper">
 			<svg width="180" height="180" viewBox="0 0 180 180" className="circular-progress" style={{ "--progress": progress } as React.CSSProperties}>
 				<defs>
-					<linearGradient id="progress-gradient" x1="0" y1="0" x2="1" y2="1">
+					<linearGradient id="gradient-colors" x1="0" y1="0" x2="1" y2="1">
 						<stop offset="0%" stopColor="#fcbe84" />
 						<stop offset="100%" stopColor="#fc84d4" />
 					</linearGradient>
@@ -64,4 +64,4 @@ function OverallProgress() {
 	</div>);
 }
 
-export default OverallProgress;
+export default RankProgress;

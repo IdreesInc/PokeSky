@@ -9,10 +9,12 @@
 }
 
 .genStats {
+	box-sizing: border-box;
 	flex-basis: 66%;
 	width: 66%;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	gap: 10px;
 	padding: 15px;
 	--card-color: #0008ff;
@@ -31,14 +33,32 @@
 	box-sizing: border-box;
 	--card-color: #7b00ff;
 	/* height: 50%; */
-	/* flex-grow: 1; */
+	flex-grow: 1;
 	padding: 15px;
 }
 
 .bioStats {
 	box-sizing: border-box;
-	--card-color: grey;
-	/* height: 30%; */
-	padding: 30px;
-	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	--card-color: #57c589;
+	height: 50%;
+	padding: 15px;
+	/* flex-grow: 1; */
+	font-family: "Noto Sans JP", sans-serif;
+	font-weight: 500;
+	color: white;
+	font-size: 17px;
+	gap: 5px;
+}
+
+@media (max-aspect-ratio: 4/3) {
+	.stats {
+		flex-direction: column;
+	}
+
+	.genStats {
+		width: 100%;
+	}
 }

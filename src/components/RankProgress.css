@@ -6,6 +6,7 @@
 	align-items: center;
 	justify-content: space-around;
 	gap: 20px;
+	overflow: hidden;
 }
 
 .progressText {
@@ -72,7 +73,7 @@
 	transform-origin: var(--half-size) var(--half-size);
 	stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
 	transition: stroke-dasharray 0.3s linear 0s;
-	stroke: url(#progress-gradient);
+	stroke: url(#gradient-colors);
 }
 
 @property --progress {
