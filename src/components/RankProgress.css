@@ -81,3 +81,10 @@
 	inherits: false;
 	initial-value: 0;
 }
+
+@media (max-aspect-ratio: 4/7) {
+	.progressContainer {
+		flex-direction: column;
+		text-align: center;
+	}
+}
