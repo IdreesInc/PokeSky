@@ -44,7 +44,7 @@
 	width: 100%;
 	--card-color: blue;
 	filter: none;
-
+	transition-duration: 0.1s;
 }
 
 .progressBarOutside,

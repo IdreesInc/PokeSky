@@ -1,5 +1,6 @@
 import { getPokemon } from "../data/pokemon";
 import { useCaught } from "../hooks/useCaught";
+import OverallProgress from "./OverallProgress";
 import ProgressBar from "./ProgressBar";
 import "./Stats.css";
 
@@ -83,7 +84,11 @@ function Stats() {
 						);
 					})}
 			</div>
-			<div className="card genOther">
+			<div className="rightStats">
+				<div className="card catchStats">
+					<OverallProgress />
+				</div>
+				<div className="card bioStats"></div>
 			</div>
 		</div>
 	);
