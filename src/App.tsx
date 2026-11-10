@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Controls from "./components/Controls";
 import Diploma from "./components/Diploma";
 import Pokedex from "./components/Pokedex";
 import Scene from "./components/Scene";
 import Stats from "./components/Stats";
+import useLocalStorageState from "use-local-storage-state";
+
+const MUSIC_KEY = "pokesky:controls:music";
+const CRIES_KEY = "pokesky:controls:cries";
 
 const audioCtx = new AudioContext();
 let source: AudioBufferSourceNode | null;
 let playing = false;
-
-if (audioCtx.state === "suspended") {
-	const resume = () => audioCtx.resume();
-	window.addEventListener("pointerdown", resume, { once: true });
-	window.addEventListener("keydown", resume, { once: true });
-}
 
 async function playMusic() {
 	if (playing) {
@@ -35,16 +33,31 @@ async function playMusic() {
 playMusic();
 
 function App() {
-	const [musicEnabled, setMusicEnabled] = useState(true);
-	const [criesEnabled, setCriesEnabled] = useState(true);
+	const [musicEnabled, setMusicEnabled] = useLocalStorageState<boolean>(
+		MUSIC_KEY,
+		{ defaultValue: true },
+	);
+	const [criesEnabled, setCriesEnabled] = useLocalStorageState<boolean>(
+		CRIES_KEY,
+		{ defaultValue: true },
+	);
 
 	useEffect(() => {
+		const resume = () => audioCtx.resume();
 		if (musicEnabled) {
+			if (audioCtx.state === "suspended") {
+				window.addEventListener("pointerdown", resume, { once: true });
+				window.addEventListener("keydown", resume, { once: true });
+			}
 			audioCtx.resume();
 		} else {
 			audioCtx.suspend();
 		}
-	}, [musicEnabled])
+		return () => {
+			window.removeEventListener("pointerdown", resume);
+			window.removeEventListener("keydown", resume);
+		};
+	}, [musicEnabled]);
 
 	return (
 		<>
@@ -55,8 +68,8 @@ function App() {
 			<Controls
 				musicEnabled={musicEnabled}
 				criesEnabled={criesEnabled}
-				toggleMusicEnabled={() => setMusicEnabled(!musicEnabled)}
-				toggleCriesEnabled={() => setCriesEnabled(!criesEnabled)}
+				toggleMusicEnabled={() => setMusicEnabled(prev => !prev)}
+				toggleCriesEnabled={() => setCriesEnabled(prev => !prev)}
 			/>
 		</>
 	);
