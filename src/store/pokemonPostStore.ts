@@ -3,7 +3,11 @@ import { getPokemon } from "../data/pokemon";
 import { onEvent } from "../firehose/firehoseClient";
 import type { PostEvent } from "../firehose/firehoseTypes";
 import { useSyncExternalStore } from "react";
-import { RegExpMatcher, englishDataset, englishRecommendedTransformers } from "obscenity";
+import {
+	RegExpMatcher,
+	englishDataset,
+	englishRecommendedTransformers,
+} from "obscenity";
 
 export type PokemonPost = {
 	key: string;
@@ -12,7 +16,7 @@ export type PokemonPost = {
 	link: string;
 };
 
-const MAX_PER_POST = 5;
+const MAX_PER_POST = 8;
 
 let firehoseCleanup: () => void;
 const listeners = new Set<() => void>();
