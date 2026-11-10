@@ -16,7 +16,7 @@ function PostBubble({ post, preview, onMiss }: PostBubbleProps) {
 				center
 				position={[0, 0.6, 0]}
 				style={{ transform: "translate(-50%, -100%)" }}
-				onPointerMissed={(e) => {
+				onPointerMissed={() => {
 					onMiss();
 				}}
 			>
@@ -27,7 +27,7 @@ function PostBubble({ post, preview, onMiss }: PostBubbleProps) {
 					<div className="postText">{post.text}</div>
 				</div>
 				<a href={post.link} target="_blank" rel="noopener noreferrer">
-					<img className="blueskyLogo" src={blueskyLogo}/>
+					<img className="blueskyLogo" src={blueskyLogo} />
 				</a>
 			</Html>
 		</>
