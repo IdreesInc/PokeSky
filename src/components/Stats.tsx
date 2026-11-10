@@ -88,11 +88,11 @@ function Stats() {
 					<OverallProgress />
 				</div>
 				<div className="card bioStats">
-					<div>Made by Idrees Hassan, follow along @idreesinc.com</div>
+					<div>Made by Idrees Hassan, follow along <a href="https://bsky.app/profile/idreesinc.com" target="_blank">@idreesinc.com</a></div>
 					<div>Developed and designed by hand</div>
-					<div>Source code: https://github.com/IdreesInc/PokéSky</div>
+					<div>Source code: <a href="https://github.com/IdreesInc/PokeSky" target="_blank">github.com/IdreesInc/PokeSky</a></div>
 					<div style={{ fontStyle: "italic", fontSize: "16px" }}>Pokémon, names, sprites, and the assets used in this project are solely owned by the Pokémon Company, Game Freak, and Nintendo. This project is unaffiliated with the aforementioned companies.</div>
-					<div style={{ fontStyle: "italic", fontSize: "14px", opacity: 0.85 }}>Privacy Policy</div>
+					<div style={{ fontStyle: "italic", fontSize: "14px", opacity: 0.85 }}><a href="https://idreesinc.com/privacy-policy.html" target="_blank">Privacy Policy</a></div>
 				</div>
 			</div>
 		</div>
