@@ -82,7 +82,7 @@
 	initial-value: 0;
 }
 
-@media (max-aspect-ratio: 4/7) {
+@media (max-aspect-ratio: 4/3.1) {
 	.progressContainer {
 		flex-direction: column;
 		text-align: center;
