@@ -26,7 +26,10 @@ async function playMusic() {
 	source.loop = true;
 	source.loopStart = 1.0;
 	source.loopEnd = 58.5;
-	source.connect(audioCtx.destination);
+	const gain = audioCtx.createGain();
+	gain.gain.value = 0.4;
+	source.connect(gain);
+	gain.connect(audioCtx.destination);
 	source.start();
 }
 
