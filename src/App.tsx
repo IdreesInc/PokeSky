@@ -32,6 +32,9 @@ async function playMusic() {
 
 playMusic();
 
+const isIOS = /iPad|iPhone|iPod/.test(navigator.platform)
+	|| (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+
 function App() {
 	const [musicEnabled, setMusicEnabled] = useLocalStorageState<boolean>(
 		MUSIC_KEY,
@@ -39,7 +42,7 @@ function App() {
 	);
 	const [criesEnabled, setCriesEnabled] = useLocalStorageState<boolean>(
 		CRIES_KEY,
-		{ defaultValue: true },
+		{ defaultValue: !isIOS },
 	);
 
 	useEffect(() => {
