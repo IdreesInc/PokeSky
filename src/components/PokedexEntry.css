@@ -190,7 +190,7 @@
 	--card-color: #d685ad;
 }
 
-@media (max-aspect-ratio: 9/16) {
+@media (max-aspect-ratio: 10/16) {
 	.pokedex {
 		gap: 0;
 	}
