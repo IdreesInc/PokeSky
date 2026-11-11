@@ -1,5 +1,5 @@
 import { useRef, useMemo, useEffect } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { waterObjectsRegistry } from "./stores/waterObjectsRegistry";
 import { INJ_VERT, INJ_FRAG } from "./shaders/injection";
@@ -33,16 +33,16 @@ import { useWaveSimulationControls } from "./utils/waveControls";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const WAVE_RES = 512;
-const TEXEL    = 1.0 / WAVE_RES;
+const TEXEL = 1.0 / WAVE_RES;
 
 export default function WaterWaveSimulation() {
-  const displayRef      = useRef<THREE.Mesh>(null!);
-  const pingIdx         = useRef(0);
-  const needsInit       = useRef(true);
-  const lastInjectTime  = useRef(-Infinity);
+  const displayRef = useRef<THREE.Mesh>(null!);
+  const pingIdx = useRef(0);
+  const needsInit = useRef(true);
+  const lastInjectTime = useRef(-Infinity);
   // Fixed-timestep accumulator — wave PDE runs at 60 Hz regardless of monitor
-  const timeAccum       = useRef(0);
-  const FIXED_STEP      = 1 / 60;
+  const timeAccum = useRef(0);
+  const FIXED_STEP = 1 / 60;
 
   const {
     enabled,
@@ -53,8 +53,8 @@ export default function WaterWaveSimulation() {
 
   // ── Injection RT ───────────────────────────────────────────────────────────
   const injRT = useMemo(() => new THREE.WebGLRenderTarget(WAVE_RES, WAVE_RES, {
-    format:    THREE.RGBAFormat,
-    type:      THREE.HalfFloatType,
+    format: THREE.RGBAFormat,
+    type: THREE.HalfFloatType,
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
   }), []);
@@ -68,11 +68,11 @@ export default function WaterWaveSimulation() {
 
   // ── Injection material ─────────────────────────────────────────────────────
   const injMat = useMemo(() => new THREE.ShaderMaterial({
-    vertexShader:   INJ_VERT,
+    vertexShader: INJ_VERT,
     fragmentShader: INJ_FRAG,
-    side:           THREE.DoubleSide,
+    side: THREE.DoubleSide,
     uniforms: {
-      uWaterY:    { value: 0.45 },
+      uWaterY: { value: 0.45 },
       uBandWidth: { value: 1.0 },
     },
   }), []);
@@ -88,14 +88,14 @@ export default function WaterWaveSimulation() {
   // ── Ping-pong wave RTs ─────────────────────────────────────────────────────
   const waveRTs = useMemo(() => [
     new THREE.WebGLRenderTarget(WAVE_RES, WAVE_RES, {
-      format:    THREE.RGBAFormat,
-      type:      THREE.HalfFloatType,
+      format: THREE.RGBAFormat,
+      type: THREE.HalfFloatType,
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
     }),
     new THREE.WebGLRenderTarget(WAVE_RES, WAVE_RES, {
-      format:    THREE.RGBAFormat,
-      type:      THREE.HalfFloatType,
+      format: THREE.RGBAFormat,
+      type: THREE.HalfFloatType,
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
     }),
@@ -103,19 +103,19 @@ export default function WaterWaveSimulation() {
 
   // ── Wave update material ───────────────────────────────────────────────────
   const waveUpdateMat = useMemo(() => new THREE.ShaderMaterial({
-    depthTest:      false,
-    depthWrite:     false,
-    vertexShader:   WAVE_VERT,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader: WAVE_VERT,
     fragmentShader: WAVE_FRAG,
     uniforms: {
-      uWaveTex:     { value: null },
-      uInjection:   { value: null },
-      uTexelSize:   { value: TEXEL },
-      uResolution:  { value: WAVE_RES },
-      uSpeed:       { value: 0.04 },
-      uDamping:     { value: 0.993 },
-      uInjectStr:   { value: 0.25 },
-      uInjectAmp:   { value: 0.7 },
+      uWaveTex: { value: null },
+      uInjection: { value: null },
+      uTexelSize: { value: TEXEL },
+      uResolution: { value: WAVE_RES },
+      uSpeed: { value: 0.04 },
+      uDamping: { value: 0.993 },
+      uInjectStr: { value: 0.25 },
+      uInjectAmp: { value: 0.7 },
       uBorderWidth: { value: 0.06 },
     },
   }), []);
@@ -128,21 +128,21 @@ export default function WaterWaveSimulation() {
 
   // ── Display material ───────────────────────────────────────────────────────
   const displayMat = useMemo(() => new THREE.ShaderMaterial({
-    transparent:    true,
-    depthWrite:     false,
-    blending:       THREE.AdditiveBlending,
-    vertexShader:   DISP_VERT,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexShader: DISP_VERT,
     fragmentShader: DISP_FRAG,
     uniforms: {
-      uWaveTex:       { value: null },
-      uCenter:        { value: new THREE.Vector2() },
-      uWaveSize:      { value: 20 },
-      uTexelSize:     { value: TEXEL },
-      uGradScale:     { value: 1.0 },
+      uWaveTex: { value: null },
+      uCenter: { value: new THREE.Vector2() },
+      uWaveSize: { value: 20 },
+      uTexelSize: { value: TEXEL },
+      uGradScale: { value: 1.0 },
       uRingThreshold: { value: 0.4 },
       uEdgeSharpness: { value: 1.0 },
-      uColor:         { value: new THREE.Color("#ffffff") },
-      uOpacity:       { value: 0.8 },
+      uColor: { value: new THREE.Color("#ffffff") },
+      uOpacity: { value: 0.8 },
     },
   }), []);
 
@@ -185,10 +185,10 @@ export default function WaterWaveSimulation() {
 
     // ── Compute centroid + wave region from all active objects ───────────────
     const active = objects.filter(o => o.ref.current);
-    let cx = 0, cz = 0, maxScale = 5;
+    let cx = 0, cz = 0 //, maxScale = 5;
     if (active.length > 0) {
-      cx       = active.reduce((s, o) => s + o.ref.current!.position.x, 0) / active.length;
-      cz       = active.reduce((s, o) => s + o.ref.current!.position.z, 0) / active.length;
+      cx = active.reduce((s, o) => s + o.ref.current!.position.x, 0) / active.length;
+      cz = active.reduce((s, o) => s + o.ref.current!.position.z, 0) / active.length;
       // maxScale = Math.max(...active.map(o => o.ref.current!.scale.x));
     }
     const waveSize = waveSizeMul;
@@ -217,9 +217,9 @@ export default function WaterWaveSimulation() {
       if (shouldInject) {
         injMat.uniforms.uBandWidth.value = bandWidth;
 
-        injCamera.left   = -waveSize;
-        injCamera.right  =  waveSize;
-        injCamera.top    =  waveSize;
+        injCamera.left = -waveSize;
+        injCamera.right = waveSize;
+        injCamera.top = waveSize;
         injCamera.bottom = -waveSize;
         injCamera.updateProjectionMatrix();
         injCamera.position.set(cx, 100, cz);
@@ -232,16 +232,16 @@ export default function WaterWaveSimulation() {
 
       // ── 2. WAVE UPDATE ────────────────────────────────────────────────────
       if (shouldStep) {
-        const readRT  = waveRTs[pingIdx.current];
+        const readRT = waveRTs[pingIdx.current];
         const writeRT = waveRTs[1 - pingIdx.current];
 
-        waveUpdateMat.uniforms.uWaveTex.value     = readRT.texture;
-        waveUpdateMat.uniforms.uInjection.value   = injRT.texture;
-        waveUpdateMat.uniforms.uSpeed.value       = speed;
-        waveUpdateMat.uniforms.uDamping.value     = damping;
+        waveUpdateMat.uniforms.uWaveTex.value = readRT.texture;
+        waveUpdateMat.uniforms.uInjection.value = injRT.texture;
+        waveUpdateMat.uniforms.uSpeed.value = speed;
+        waveUpdateMat.uniforms.uDamping.value = damping;
         waveUpdateMat.uniforms.uBorderWidth.value = borderWidth;
-        waveUpdateMat.uniforms.uInjectAmp.value   = injectAmp;
-        waveUpdateMat.uniforms.uInjectStr.value   = shouldInject ? injectStr : 0.0;
+        waveUpdateMat.uniforms.uInjectAmp.value = injectAmp;
+        waveUpdateMat.uniforms.uInjectStr.value = shouldInject ? injectStr : 0.0;
 
         gl.setRenderTarget(writeRT);
         gl.render(waveScene, waveCamera);
@@ -255,14 +255,14 @@ export default function WaterWaveSimulation() {
 
     // ── 3. Display uniforms ───────────────────────────────────────────────
     const u = displayMat.uniforms;
-    u.uWaveTex.value        = waveRTs[pingIdx.current].texture;
+    u.uWaveTex.value = waveRTs[pingIdx.current].texture;
     u.uCenter.value.set(cx, cz);
-    u.uWaveSize.value       = waveSize;
-    u.uGradScale.value      = gradScale;
-    u.uRingThreshold.value  = ringThreshold;
-    u.uEdgeSharpness.value  = edgeSharpness;
+    u.uWaveSize.value = waveSize;
+    u.uGradScale.value = gradScale;
+    u.uRingThreshold.value = ringThreshold;
+    u.uEdgeSharpness.value = edgeSharpness;
     u.uColor.value.set(color);
-    u.uOpacity.value        = opacity;
+    u.uOpacity.value = opacity;
 
     if (displayRef.current) {
       displayRef.current.position.x = camera.position.x;
