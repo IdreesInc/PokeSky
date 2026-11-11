@@ -52,3 +52,9 @@
 	box-sizing: border-box;
 	border-radius: 100px;
 }
+
+@media (max-aspect-ratio: 9/16) {
+	.progressBarInside {
+		min-width: 50px;
+	}
+}
