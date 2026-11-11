@@ -189,3 +189,13 @@
 .fairyType {
 	--card-color: #d685ad;
 }
+
+@media (max-aspect-ratio: 9/16) {
+	.pokedex {
+		gap: 0;
+	}
+
+	.pokedexEntry {
+		scale: 0.8;
+	}
+}
