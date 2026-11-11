@@ -140,7 +140,7 @@ function Sprite({ pokedex, caught, post, criesEnabled, onClick, remove }: Sprite
 					setUiActive(!uiActive);
 					if (!uiActive && criesEnabled) {
 						const cry = new Audio(cryUri(pokedex));
-						cry.volume = 0.45;
+						cry.volume = 0.25;
 						cry.play().catch(() => { });
 					}
 					setHovered(false);
