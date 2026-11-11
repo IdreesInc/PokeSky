@@ -30,7 +30,7 @@ function getRandom(towardsFront: boolean = false) {
 }
 
 function Sprite({ pokedex, caught, post, criesEnabled, onClick, remove }: SpriteProps) {
-	const texture = useTexture(`/sprites/${pokedex}.png`, (texture) => {
+	const texture = useTexture(`sprites/${pokedex}.png`, (texture) => {
 		texture.minFilter = NearestFilter;
 		texture.magFilter = NearestFilter;
 		texture.needsUpdate = true;

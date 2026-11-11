@@ -16,7 +16,7 @@ type SceneProps = {
 
 function Scene({ criesEnabled }: SceneProps) {
 	const { scene: islandModel } = useGLTF(
-		"/models/isle_abeens_level1_baked.glb",
+		"models/isle_abeens_level1_baked.glb",
 	);
 
 	const islandRef = useRef<Object3D>(null);
