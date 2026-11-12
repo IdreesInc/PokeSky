@@ -47,6 +47,9 @@ function handleEvent(event: PostEvent) {
 	for (const pokedex of deduped) {
 		if (count++ >= MAX_PER_POST) {
 			break;
+		} else if (!event.contents.includes(" ")) {
+			// Must be more than a single word
+			break;
 		}
 		posts = [
 			...posts,
