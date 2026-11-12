@@ -26,6 +26,14 @@
 	font-family: "Noto Sans JP", sans-serif;
 }
 
+/* Used to allow for scrolling between entry cards */
+.pokedexEntry::before {
+	position: absolute;
+	content: "";
+	inset: 0 -20px -30px;
+	z-index: -1;
+}
+
 .pokedexEntry>img {
 	width: 130px;
 	height: auto;
