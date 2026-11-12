@@ -1,4 +1,4 @@
-# PokéSky - Catch Pokémon live from the Bluesky!
+# PokéSky - Catch Pokémon live from Bluesky!
 
 ## [`Play it here!`](https://pokesky.idreesinc.com)
 
