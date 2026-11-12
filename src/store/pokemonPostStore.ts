@@ -16,7 +16,7 @@ export type PokemonPost = {
 	link: string;
 };
 
-const MAX_PER_POST = 8;
+const MAX_PER_POST = 5;
 
 let firehoseCleanup: () => void;
 const listeners = new Set<() => void>();
