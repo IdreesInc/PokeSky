@@ -21,6 +21,12 @@ Like Poké Pelago, but for Bluesky!
 - Click on Pokémon as they appear live to catch them
 - Unlock Pokémon and see them as they appear in your Pokédex
 
+## Acknowledgements
+
+- Water shader: https://github.com/cortiz2894/water-anime-shader
+- Pixel sprites for gen 8 and beyond: https://play.pokemonshowdown.com/sprites
+- Sprites, sounds, names, and images are all property of the Pokémon Company, Game Freak, and Nintendo
+
 ---
 
 Let me know what you catch and feel free to reach out [@idreesinc.com](https://bsky.app/profile/idreesinc.com)!
