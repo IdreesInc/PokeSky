@@ -1,4 +1,4 @@
-# PokéSky - Catch Pokémon live from the Bluesky firehose!
+# PokéSky - Catch Pokémon live from the Bluesky!
 
 ## [`Play it here!`](https://pokesky.idreesinc.com)
 
