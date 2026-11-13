@@ -3,11 +3,8 @@ import { getPokemon } from "../data/pokemon";
 import { onEvent } from "../firehose/firehoseClient";
 import type { PostEvent } from "../firehose/firehoseTypes";
 import { useSyncExternalStore } from "react";
-import {
-	RegExpMatcher,
-	englishDataset,
-	englishRecommendedTransformers,
-} from "obscenity";
+import { RegExpMatcher, englishRecommendedTransformers } from "obscenity";
+import badWordsDataset from "./badWords";
 
 export type PokemonPost = {
 	key: string;
@@ -30,7 +27,7 @@ const matchDetector = new AhoCorasick(
 	{ boundary: "unicode" },
 );
 const badWordDetector = new RegExpMatcher({
-	...englishDataset.build(),
+	...badWordsDataset.build(),
 	...englishRecommendedTransformers,
 });
 
