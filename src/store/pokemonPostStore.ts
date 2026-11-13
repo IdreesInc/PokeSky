@@ -39,6 +39,9 @@ function handleEvent(event: PostEvent) {
 	if (badWordDetector.hasMatch(contents)) {
 		return;
 	}
+	if(/(diaper|abdl|incontinent|potty train|manure pants)/.test(contents)){
+	  return;
+	}
 	const matches = matchDetector.search(contents, {
 		strategy: "leftmost-longest",
 	});
