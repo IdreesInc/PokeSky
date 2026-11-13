@@ -42,13 +42,21 @@ function handleEvent(event: PostEvent) {
 	const matches = matchDetector.search(contents, {
 		strategy: "leftmost-longest",
 	});
+	let matchedCharCount = 0;
+	for (const match of matches) {
+		matchedCharCount += match.end - match.start;
+	}
+	if (
+		matches.length > 1 &&
+		contents.length - matchedCharCount <= contents.length / 2
+	) {
+		// Reject for spam
+		return;
+	}
 	const deduped = new Set(matches.map((match) => match.data));
 	let count = 0;
 	for (const pokedex of deduped) {
 		if (count++ >= MAX_PER_POST) {
-			break;
-		} else if (!event.contents.includes(" ")) {
-			// Must be more than a single word
 			break;
 		}
 		posts = [
