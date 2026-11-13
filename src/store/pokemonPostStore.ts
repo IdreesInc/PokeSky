@@ -42,14 +42,15 @@ function handleEvent(event: PostEvent) {
 	const matches = matchDetector.search(contents, {
 		strategy: "leftmost-longest",
 	});
+	if (matches.length === 0) {
+		return;
+	}
 	let matchedCharCount = 0;
 	for (const match of matches) {
 		matchedCharCount += match.end - match.start;
 	}
-	if (
-		matches.length > 1 &&
-		contents.length - matchedCharCount <= contents.length / 2
-	) {
+	const remainingCount = contents.length - matchedCharCount;
+	if (remainingCount <= (matches.length == 1 ? 5 : contents.length / 2)) {
 		// Reject for spam
 		return;
 	}
